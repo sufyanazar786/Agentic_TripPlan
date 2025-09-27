@@ -1,6 +1,7 @@
 # Core backend
 fastapi==0.100.0
 uvicorn[standard]==0.23.2
+langchain-groq==0.1.0
 requests==2.32.4
 python-dotenv==1.0.0
 
@@ -70,3 +71,4 @@ typing_extensions==4.14.0
 tzdata==2025.2
 virtualenv==20.28.0
 watchdog==6.0.0
+
