@@ -5,7 +5,7 @@ import datetime
 # from exception.exceptions import TradingBotException
 import sys
 
-BASE_URL = "http://localhost:8000"  # Backend endpoint
+BASE_URL = "https://ai-trip-planner-backend.onrender.com"  # Backend endpoint
 
 st.set_page_config(
     page_title="🌍 Travel Planner Agentic Application",
@@ -56,4 +56,5 @@ if submit_button and user_input.strip():
             st.error(" Bot failed to respond: " + response.text)
 
     except Exception as e:
+
         raise f"The response failed due to {e}" 
