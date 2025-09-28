@@ -61,15 +61,12 @@
 
 
 
-
 import streamlit as st
 import requests
 import datetime
 
-# ---------- Backend URL ----------
 BASE_URL = "https://agentic-tripplan.onrender.com"  # Backend endpoint
 
-# ---------- Page config ----------
 st.set_page_config(
     page_title="🌍 Travel Planner Agentic Application",
     page_icon="🌍",
@@ -77,116 +74,69 @@ st.set_page_config(
     initial_sidebar_state="expanded",
 )
 
-st.title("🌍 Travel Planner Agentic Application")
-
-# ---------- Dark theme + modern CSS ----------
+# ---------- Dark theme CSS ----------
 st.markdown(
     """
     <style>
-    /* Page background */
     body {
-        background: linear-gradient(180deg, #0f172a, #080a14);
+        background-color: #0a0a0a;
         color: #e6eef8;
         font-family: 'Inter', sans-serif;
     }
-    h1, h2, h3, h4, h5, h6, p {
-        color: #cfeffc;
+    .stApp {
+        background-color: #0a0a0a;
+        color: #e6eef8;
     }
-
-    /* Input box */
     .stTextInput>div>div>input {
         background-color: #1e293b;
         color: #e6eef8;
-        border-radius: 12px;
-        padding: 12px;
+        border-radius: 8px;
+        padding: 8px;
         border: 1px solid #3b4252;
-        transition: border 0.2s, box-shadow 0.2s;
     }
     .stTextInput>div>div>input:focus {
         border: 1px solid #06b6d4;
         box-shadow: 0 0 6px #06b6d4;
     }
-
-    /* Buttons */
     .stButton>button {
-        background: linear-gradient(90deg,#06b6d4,#3b82f6);
-        color: white;
-        border: none;
-        padding: 10px 20px;
-        border-radius: 14px;
+        background-color: #06b6d4;
+        color: #0f172a;
+        border-radius: 8px;
         font-weight: 600;
-        cursor: pointer;
-        transition: all 0.2s ease-in-out;
-        box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+        padding: 8px 16px;
     }
     .stButton>button:hover {
-        transform: translateY(-2px);
-        box-shadow: 0 6px 16px rgba(0,0,0,0.4);
+        background-color: #3b82f6;
+        color: #fff;
     }
-
-    /* Chat window */
-    .chat-container {
-        background: linear-gradient(180deg, rgba(15,23,42,0.95), rgba(8,10,20,0.95));
-        padding: 12px;
-        border-radius: 16px;
-        max-height: 60vh;
-        overflow-y: auto;
-        margin-bottom: 16px;
-        border: 1px solid rgba(255,255,255,0.08);
-    }
-
-    /* Chat bubbles */
-    .chat-bubble-user {
-        background: linear-gradient(90deg,#06b6d4,#3b82f6);
-        color: #0f172a;
-        padding: 12px 18px;
-        border-radius: 20px 20px 4px 20px;
-        margin: 6px 0;
-        max-width: 70%;
-        margin-left: auto;
-        word-wrap: break-word;
-        transition: transform 0.2s;
-    }
-    .chat-bubble-user:hover {
-        transform: scale(1.02);
-    }
-
-    .chat-bubble-assistant {
-        background: rgba(255,255,255,0.05);
-        border:1px solid rgba(255,255,255,0.1);
+    h1, h2, h3, h4, h5, h6, p, strong {
         color: #e6eef8;
-        padding: 12px 18px;
-        border-radius: 20px 20px 20px 4px;
-        margin: 6px 0;
-        max-width: 70%;
-        word-wrap: break-word;
-        transition: transform 0.2s;
     }
-    .chat-bubble-assistant:hover {
-        transform: scale(1.02);
+    .stMarkdown p {
+        color: #e6eef8;
     }
-
-    /* Timestamp */
-    .chat-meta {
-        font-size: 11px;
-        color: #94a3b8;
-        margin-top: 4px;
+    .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
+        color: #cfeffc;
     }
     </style>
     """,
-    unsafe_allow_html=True,
+    unsafe_allow_html=True
 )
 
-# ---------- Initialize chat history ----------
+st.title("🌍 Travel Planner Agentic Application")
+
+# Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# ---------- Chat input form ----------
+# Display chat header
+st.header("How can I help you in planning a trip? Let me know where do you want to visit.")
+
+# Chat input box at bottom
 with st.form(key="query_form", clear_on_submit=True):
-    user_input = st.text_input("Your travel request", placeholder="e.g. Plan a trip to Goa for 5 days")
+    user_input = st.text_input("User Input", placeholder="e.g. Plan a trip to Goa for 5 days")
     submit_button = st.form_submit_button("Send")
 
-# ---------- Handle submission ----------
 if submit_button and user_input.strip():
     try:
         with st.spinner("Bot is thinking..."):
@@ -195,23 +145,22 @@ if submit_button and user_input.strip():
 
         if response.status_code == 200:
             answer = response.json().get("answer", "No answer returned.")
-            st.session_state.messages.append({"role": "user", "text": user_input})
-            st.session_state.messages.append({"role": "assistant", "text": answer})
+            markdown_content = f"""# 🌍 AI Travel Plan
+
+# **Generated:** {datetime.datetime.now().strftime('%Y-%m-%d at %H:%M')}  
+# **Created by:** Sufyans's Travel Agent
+
+---
+
+{answer}
+
+---
+
+*This travel plan was generated by AI. Please verify all information, especially prices, operating hours, and travel requirements before your trip.*
+"""
+            st.markdown(markdown_content)
         else:
-            st.error("Bot failed to respond: " + response.text)
+            st.error(" Bot failed to respond: " + response.text)
+
     except Exception as e:
-        st.error(f"The response failed due to {e}")
-
-# ---------- Display chat history ----------
-st.markdown("<div class='chat-container'>", unsafe_allow_html=True)
-for msg in st.session_state.messages:
-    if msg["role"] == "user":
-        st.markdown(f"<div class='chat-bubble-user'>{msg['text']}</div>", unsafe_allow_html=True)
-    else:
-        st.markdown(f"<div class='chat-bubble-assistant'>{msg['text']}</div>", unsafe_allow_html=True)
-        st.markdown(f"<div class='chat-meta'>{datetime.datetime.now().strftime('%Y-%m-%d %H:%M')}</div>", unsafe_allow_html=True)
-st.markdown("</div>", unsafe_allow_html=True)
-
-# ---------- Footer ----------
-st.markdown("---")
-st.markdown("*This travel plan was generated by AI. Verify all details before your trip.*")
+        raise f"The response failed due to {e}"
