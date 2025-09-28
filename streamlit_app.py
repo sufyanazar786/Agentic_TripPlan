@@ -33,7 +33,7 @@ st.markdown(
     }
     .stButton>button:hover {
         background-color: #3b82f6 !important;
-        color: #fff !important;
+        color: #000 !important;
     }
     </style>
     """,
@@ -208,6 +208,7 @@ if submit_button and user_input.strip():
 
 #     except Exception as e:
 #         raise f"The response failed due to {e}"
+
 
 
 
