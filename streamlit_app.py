@@ -68,7 +68,7 @@ import datetime
 BASE_URL = "https://agentic-tripplan.onrender.com"  # Backend endpoint
 
 st.set_page_config(
-    page_title="🌍 Travel Planner Agentic Application",
+    page_title="Travel Planner Agentic Application",
     page_icon="🌍",
     layout="centered",
     initial_sidebar_state="expanded",
@@ -78,37 +78,50 @@ st.set_page_config(
 st.markdown(
     """
     <style>
-    body {
+    body, .stApp {
         background-color: #0a0a0a;
         color: #e6eef8;
         font-family: 'Inter', sans-serif;
     }
-    .stApp {
-        background-color: #0a0a0a;
-        color: #e6eef8;
-    }
+
+    /* Input box */
     .stTextInput>div>div>input {
-        background-color: #1e293b;
-        color: #e6eef8;
+        background-color: #1e293b !important;
+        color: #e6eef8 !important;
         border-radius: 8px;
         padding: 8px;
         border: 1px solid #3b4252;
     }
     .stTextInput>div>div>input:focus {
-        border: 1px solid #06b6d4;
+        border: 1px solid #06b6d4 !important;
         box-shadow: 0 0 6px #06b6d4;
     }
+
+    /* Buttons */
     .stButton>button {
-        background-color: #06b6d4;
-        color: #0f172a;
+        background-color: #06b6d4 !important;
+        color: #0f172a !important;
         border-radius: 8px;
         font-weight: 600;
         padding: 8px 16px;
+        border: none;
+        cursor: pointer;
     }
     .stButton>button:hover {
-        background-color: #3b82f6;
-        color: #fff;
+        background-color: #3b82f6 !important;
+        color: #fff !important;
     }
+
+    /* Sidebar headers/buttons */
+    .css-1d391kg, .css-1r6slb0 { 
+        color: #e6eef8 !important; 
+    }
+    .css-1emrehy.e16nr0p33 { /* Sidebar buttons hover */
+        background-color: #1e293b !important;
+        color: #06b6d4 !important;
+    }
+
+    /* Markdown styling */
     h1, h2, h3, h4, h5, h6, p, strong {
         color: #e6eef8;
     }
@@ -118,21 +131,26 @@ st.markdown(
     .stMarkdown h1, .stMarkdown h2, .stMarkdown h3 {
         color: #cfeffc;
     }
+
+    /* Streamlit menu & top bar icons */
+    [data-testid="stDecoration"] svg, 
+    [data-testid="stHorizontalBlock"] svg {
+        fill: #e6eef8 !important;
+    }
     </style>
     """,
     unsafe_allow_html=True
 )
 
+# ---------- Main UI ----------
 st.title("🌍 Travel Planner Agentic Application")
 
 # Initialize chat history
 if "messages" not in st.session_state:
     st.session_state.messages = []
 
-# Display chat header
 st.header("How can I help you in planning a trip? Let me know where do you want to visit.")
 
-# Chat input box at bottom
 with st.form(key="query_form", clear_on_submit=True):
     user_input = st.text_input("User Input", placeholder="e.g. Plan a trip to Goa for 5 days")
     submit_button = st.form_submit_button("Send")
