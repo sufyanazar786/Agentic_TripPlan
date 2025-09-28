@@ -100,7 +100,7 @@ st.markdown(
     /* Buttons */
     .stButton>button {
         background-color: #000000 !important;  /* Cyan background */
-        color: #000000 !important;            /* Black text */
+        color: #06b6d4 !important;            /* Black text */
         border-radius: 8px;
         font-weight: 600;
         padding: 8px 16px;
@@ -183,5 +183,6 @@ if submit_button and user_input.strip():
 
     except Exception as e:
         raise f"The response failed due to {e}"
+
 
 
