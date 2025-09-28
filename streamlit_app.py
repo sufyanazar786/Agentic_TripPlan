@@ -8,7 +8,7 @@ import sys
 BASE_URL = "https://agentic-tripplan.onrender.com"  # Backend endpoint
 
 st.set_page_config(
-    page_title="🌍 Travel Planner Agentic Application",
+    page_title="Travel Planner Agentic Application",
     page_icon="🌍",
     layout="centered",
     initial_sidebar_state="expanded",
@@ -26,7 +26,7 @@ st.markdown(
     }
     .stButton>button {
         background-color: #06b6d4 !important;
-        color: #000 !important;
+        color: #fff !important;
         font-weight: 600;
         border-radius: 6px;
         padding: 6px 12px;
@@ -208,6 +208,7 @@ if submit_button and user_input.strip():
 
 #     except Exception as e:
 #         raise f"The response failed due to {e}"
+
 
 
 
