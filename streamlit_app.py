@@ -13,33 +13,8 @@ st.set_page_config(
     layout="centered",
     initial_sidebar_state="expanded",
 )
-st.markdown(
-    """
-    <style>
-    body, .stApp {
-        background-color: #0a0a0a;
-        color: #e6eef8;
-    }
-    .stTextInput>div>div>input {
-        background-color: #1e293b !important;
-        color: #e6eef8 !important;
-    }
-    .stButton>button {
-        background-color: #06b6d4 !important;
-        color: #fff !important;
-        font-weight: 600;
-        border-radius: 6px;
-        padding: 6px 12px;
-    }
-    .stButton>button:hover {
-        background-color: #3b82f6 !important;
-        color: #000 !important;
-    }
-    </style>
-    """,
-    unsafe_allow_html=True
-)
-st.title("🌍 Travel Planner Agentic Application")
+
+st.title("Travel Planner Agentic Application")
 
 # Initialize chat history
 if "messages" not in st.session_state:
@@ -208,6 +183,7 @@ if submit_button and user_input.strip():
 
 #     except Exception as e:
 #         raise f"The response failed due to {e}"
+
 
 
 
