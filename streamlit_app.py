@@ -99,8 +99,8 @@ st.markdown(
 
     /* Buttons */
     .stButton>button {
-        background-color: #06b6d4 !important;
-        color: #0f172a !important;
+        background-color: #06b6d4 !important;  /* Cyan background */
+        color: #000000 !important;            /* Black text */
         border-radius: 8px;
         font-weight: 600;
         padding: 8px 16px;
@@ -108,9 +108,10 @@ st.markdown(
         cursor: pointer;
     }
     .stButton>button:hover {
-        background-color: #3b82f6 !important;
-        color: #fff !important;
+        background-color: #3b82f6 !important; /* Lighter cyan on hover */
+        color: #000000 !important;             /* Keep text black */
     }
+
 
     /* Sidebar headers/buttons */
     .css-1d391kg, .css-1r6slb0 { 
@@ -182,3 +183,4 @@ if submit_button and user_input.strip():
 
     except Exception as e:
         raise f"The response failed due to {e}"
+
